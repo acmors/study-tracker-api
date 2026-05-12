@@ -1,39 +1,30 @@
-package com.github.acmors.model;
+package com.github.acmors.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.github.acmors.model.StudySession;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class StudySession {
+public class ResponseStudySession {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String topic;
     private String description;
     private Integer durationMinutes;
     private LocalDateTime studiedAt;
-    private Status Status;
+    private StudySession.Status Status;
 
-    public enum Status{
-        PLANNED, DONE
-    }
-
-    public StudySession() {
-    }
-
-    public StudySession(String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, Status status) {
+    public ResponseStudySession(Long id, String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, StudySession.Status status) {
+        this.id = id;
         this.title = title;
         this.topic = topic;
         this.description = description;
         this.durationMinutes = durationMinutes;
         this.studiedAt = studiedAt;
         Status = status;
+    }
+
+    public ResponseStudySession() {
     }
 
     public Long getId() {
@@ -52,20 +43,20 @@ public class StudySession {
         this.title = title;
     }
 
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public Integer getDurationMinutes() {
@@ -84,11 +75,11 @@ public class StudySession {
         this.studiedAt = studiedAt;
     }
 
-    public Status getStatus() {
+    public StudySession.Status getStatus() {
         return Status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(StudySession.Status status) {
         Status = status;
     }
 }

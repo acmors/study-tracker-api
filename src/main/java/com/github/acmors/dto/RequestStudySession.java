@@ -1,47 +1,28 @@
-package com.github.acmors.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+package com.github.acmors.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.acmors.model.StudySession;
 import java.time.LocalDateTime;
 
-@Entity
-public class StudySession {
+public class RequestStudySession {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String title;
     private String topic;
     private String description;
     private Integer durationMinutes;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime studiedAt;
-    private Status Status;
+    private StudySession.Status Status;
 
-    public enum Status{
-        PLANNED, DONE
+    public RequestStudySession() {
     }
 
-    public StudySession() {
-    }
-
-    public StudySession(String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, Status status) {
+    public RequestStudySession(String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, StudySession.Status status) {
         this.title = title;
         this.topic = topic;
         this.description = description;
         this.durationMinutes = durationMinutes;
         this.studiedAt = studiedAt;
         Status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -84,11 +65,11 @@ public class StudySession {
         this.studiedAt = studiedAt;
     }
 
-    public Status getStatus() {
+    public StudySession.Status getStatus() {
         return Status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(StudySession.Status status) {
         Status = status;
     }
 }
