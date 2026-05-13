@@ -1,4 +1,5 @@
 package com.github.acmors.dto;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.acmors.model.StudySession;
 import jakarta.persistence.EnumType;
@@ -6,7 +7,7 @@ import jakarta.persistence.Enumerated;
 
 import java.time.LocalDateTime;
 
-public class RequestStudySession {
+public class UpdateStudySession {
 
     private String title;
     private String topic;
@@ -18,10 +19,10 @@ public class RequestStudySession {
     @Enumerated(EnumType.STRING)
     private StudySession.Status Status;
 
-    public RequestStudySession() {
+    public UpdateStudySession() {
     }
 
-    public RequestStudySession(String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, StudySession.Status status) {
+    public UpdateStudySession(String title, String topic, String description, Integer durationMinutes, LocalDateTime studiedAt, StudySession.Status status) {
         this.title = title;
         this.topic = topic;
         this.description = description;
