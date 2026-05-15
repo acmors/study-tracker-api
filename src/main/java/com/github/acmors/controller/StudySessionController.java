@@ -1,9 +1,9 @@
 package com.github.acmors.controller;
 
-import com.github.acmors.dto.RequestStudySession;
-import com.github.acmors.dto.ResponseStudySession;
-import com.github.acmors.dto.UpdateStudySession;
-import com.github.acmors.dto.UpdateStudySessionStatus;
+import com.github.acmors.dto.study.RequestStudySession;
+import com.github.acmors.dto.study.ResponseStudySession;
+import com.github.acmors.dto.study.UpdateStudySession;
+import com.github.acmors.dto.study.UpdateStudySessionStatus;
 import com.github.acmors.service.StudySessionService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/study-session")
 public class StudySessionController {
 
     private final StudySessionService service;

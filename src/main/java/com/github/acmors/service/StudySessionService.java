@@ -1,11 +1,11 @@
 package com.github.acmors.service;
 
-import com.github.acmors.dto.RequestStudySession;
-import com.github.acmors.dto.ResponseStudySession;
-import com.github.acmors.dto.UpdateStudySession;
-import com.github.acmors.dto.UpdateStudySessionStatus;
+import com.github.acmors.dto.study.RequestStudySession;
+import com.github.acmors.dto.study.ResponseStudySession;
+import com.github.acmors.dto.study.UpdateStudySession;
+import com.github.acmors.dto.study.UpdateStudySessionStatus;
 import com.github.acmors.mapper.MapperStudySession;
-import com.github.acmors.model.StudySession;
+import com.github.acmors.entities.StudySession;
 import com.github.acmors.repository.StudySessionRepository;
 import com.github.acmors.validations.StudySessionValidation;
 import jakarta.persistence.EntityNotFoundException;
@@ -63,7 +63,7 @@ public class StudySessionService {
         entity.setDurationMinutes(update.getDurationMinutes());
         entity.setStudiedAt(update.getStudiedAt());
         entity.setStatus(update.getStatus());
-        
+
         validation.validateUpdateSession(update);
 
         var saved = repository.save(entity);

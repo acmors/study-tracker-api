@@ -1,7 +1,7 @@
 package com.github.acmors.mapper;
 
-import com.github.acmors.dto.ResponseStudySession;
-import com.github.acmors.model.StudySession;
+import com.github.acmors.dto.study.ResponseStudySession;
+import com.github.acmors.entities.StudySession;
 
 public class MapperStudySession {
 

@@ -1,7 +1,7 @@
 package com.github.acmors.validations;
 
-import com.github.acmors.dto.RequestStudySession;
-import com.github.acmors.dto.UpdateStudySession;
+import com.github.acmors.dto.study.RequestStudySession;
+import com.github.acmors.dto.study.UpdateStudySession;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Component;
 

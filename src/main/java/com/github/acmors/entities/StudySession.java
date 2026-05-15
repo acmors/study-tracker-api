@@ -1,4 +1,4 @@
-package com.github.acmors.model;
+package com.github.acmors.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

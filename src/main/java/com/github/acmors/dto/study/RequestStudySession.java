@@ -1,6 +1,6 @@
-package com.github.acmors.dto;
+package com.github.acmors.dto.study;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.acmors.model.StudySession;
+import com.github.acmors.entities.StudySession;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
