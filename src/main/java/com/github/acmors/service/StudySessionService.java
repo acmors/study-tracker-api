@@ -7,7 +7,9 @@ import com.github.acmors.dto.UpdateStudySessionStatus;
 import com.github.acmors.mapper.MapperStudySession;
 import com.github.acmors.model.StudySession;
 import com.github.acmors.repository.StudySessionRepository;
+import com.github.acmors.validations.StudySessionValidation;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudySessionService {
 
     private final StudySessionRepository repository;
+    private final StudySessionValidation validation;
 
-    public StudySessionService(StudySessionRepository repository) {
+    public StudySessionService(StudySessionRepository repository, StudySessionValidation validation) {
         this.repository = repository;
+        this.validation = validation;
     }
 
 
     @Transactional
-    public ResponseStudySession createStudySession(RequestStudySession request){
+    public ResponseStudySession createStudySession(RequestStudySession request) throws BadRequestException {
         StudySession entity = new StudySession();
-
         entity.setTitle(request.getTitle());
         entity.setTopic(request.getTopic());
         entity.setDescription(request.getDescription());
@@ -32,6 +35,7 @@ public class StudySessionService {
         entity.setStudiedAt(request.getStudiedAt());
         entity.setStatus(request.getStatus());
 
+        validation.validateCreateSession(request);
         var saved = repository.save(entity);
         return MapperStudySession.toDTO(saved);
     }
@@ -50,7 +54,7 @@ public class StudySessionService {
     }
 
     @Transactional
-    public ResponseStudySession updateStudySession(Long id, UpdateStudySession update){
+    public ResponseStudySession updateStudySession(Long id, UpdateStudySession update) throws BadRequestException {
         StudySession entity = findByIdEntity(id);
 
         entity.setTitle(update.getTitle());
@@ -59,6 +63,8 @@ public class StudySessionService {
         entity.setDurationMinutes(update.getDurationMinutes());
         entity.setStudiedAt(update.getStudiedAt());
         entity.setStatus(update.getStatus());
+        
+        validation.validateUpdateSession(update);
 
         var saved = repository.save(entity);
         return MapperStudySession.toDTO(saved);

@@ -5,6 +5,7 @@ import com.github.acmors.dto.ResponseStudySession;
 import com.github.acmors.dto.UpdateStudySession;
 import com.github.acmors.dto.UpdateStudySessionStatus;
 import com.github.acmors.service.StudySessionService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,12 @@ public class StudySessionController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseStudySession> createStudySession(@RequestBody RequestStudySession request){
+    public ResponseEntity<ResponseStudySession> createStudySession(@RequestBody RequestStudySession request) throws BadRequestException {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createStudySession(request));
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<ResponseStudySession> updateStudySession(@PathVariable Long id,@RequestBody UpdateStudySession update){
+    public ResponseEntity<ResponseStudySession> updateStudySession(@PathVariable Long id,@RequestBody UpdateStudySession update) throws BadRequestException {
         return ResponseEntity.ok().body(service.updateStudySession(id, update));
     }
 

@@ -1,3 +1,12 @@
 spring:
   application:
-    name: demo
+    name: api-study-tracker
+
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: pass
+    driverClassName: org.h2.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
