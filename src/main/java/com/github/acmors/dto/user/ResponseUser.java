@@ -1,32 +1,22 @@
-package com.github.acmors.entities;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.github.acmors.dto.user;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class UserAccount {
+public class ResponseUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
-    private String password;
     private LocalDateTime createdAt;
 
-    public UserAccount() {
-    }
-
-    public UserAccount(Long id, String name, String email, String password, LocalDateTime createdAt) {
+    public ResponseUser(Long id, String name, String email,LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.createdAt = createdAt;
+    }
+
+    public ResponseUser() {
     }
 
     public Long getId() {
@@ -51,14 +41,6 @@ public class UserAccount {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public LocalDateTime getCreatedAt() {

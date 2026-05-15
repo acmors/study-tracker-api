@@ -20,12 +20,12 @@ public class TopicController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseTopic> createStudySession(@RequestBody RequestTopic request) throws BadRequestException {
+    public ResponseEntity<ResponseTopic> createStudySession(@RequestBody RequestTopic request){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createTopic(request));
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<ResponseTopic> updateStudySession(@PathVariable Long id,@RequestBody UpdateTopic update) throws BadRequestException {
+    public ResponseEntity<ResponseTopic> updateStudySession(@PathVariable Long id,@RequestBody UpdateTopic update){
         return ResponseEntity.ok().body(service.updateTopic(id, update));
     }
 
