@@ -1,9 +1,6 @@
 package com.github.acmors.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -15,14 +12,14 @@ public class Topic {
     private Long id;
     private String name;
     private String color;
-    private UserAccount user;
+    private String userAccount;
     private boolean active;
     private LocalDateTime createdAt;
 
-    public Topic(String name, String color, UserAccount user, boolean active, LocalDateTime createdAt) {
+    public Topic(String name, String color, String userAccount, boolean active, LocalDateTime createdAt) {
         this.name = name;
         this.color = color;
-        this.user = user;
+        this.userAccount = userAccount;
         this.active = active;
         this.createdAt = createdAt;
     }
@@ -54,12 +51,12 @@ public class Topic {
         this.color = color;
     }
 
-    public UserAccount getUser() {
-        return user;
+    public String getUser() {
+        return userAccount;
     }
 
-    public void setUser(UserAccount user) {
-        this.user = user;
+    public void setUser(String userAccount) {
+        this.userAccount = userAccount;
     }
 
     public boolean isActive() {

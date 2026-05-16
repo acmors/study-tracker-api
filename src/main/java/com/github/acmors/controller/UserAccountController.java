@@ -5,6 +5,7 @@ import com.github.acmors.dto.user.ResponseUser;
 import com.github.acmors.dto.user.UpdateUserPassword;
 import com.github.acmors.dto.user.UpdateUserProfile;
 import com.github.acmors.service.UserAccountService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,13 @@ public class UserAccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(request));
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("update-profile/{id}")
     public ResponseEntity<ResponseUser> updateUserProfile(@PathVariable Long id,@RequestBody UpdateUserProfile update){
         return ResponseEntity.ok().body(service.updateUserProfile(id, update));
     }
 
-    @PatchMapping("updateStatus/{id}")
-    public ResponseEntity<ResponseUser> updateUserPassword(@PathVariable Long id, @RequestBody UpdateUserPassword updateStatus){
+    @PatchMapping("update-password/{id}")
+    public ResponseEntity<ResponseUser> updateUserPassword(@PathVariable Long id, @RequestBody UpdateUserPassword updateStatus) throws BadRequestException {
         return ResponseEntity.ok().body(service.updateUserPassword(id, updateStatus));
     }
 

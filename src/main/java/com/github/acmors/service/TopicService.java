@@ -11,6 +11,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 public class TopicService {
 
@@ -27,6 +29,7 @@ public class TopicService {
         topic.setName(request.getName());
         topic.setColor(request.getColor());
         topic.setActive(request.isActive());
+        topic.setCreatedAt(LocalDateTime.now());
 
         var saved = repository.save(topic);
         return MapperTopic.toDTO(saved);
