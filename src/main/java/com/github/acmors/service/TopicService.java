@@ -6,6 +6,8 @@ import com.github.acmors.dto.topic.UpdateTopic;
 import com.github.acmors.dto.topic.UpdateTopicStatus;
 import com.github.acmors.entities.Topic;
 import com.github.acmors.entities.UserAccount;
+import com.github.acmors.exceptions.GlobalErrorException;
+import com.github.acmors.exceptions.ResourceNotFoundException;
 import com.github.acmors.mapper.MapperTopic;
 import com.github.acmors.repository.TopicRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -61,7 +63,7 @@ public class TopicService {
     @Transactional(readOnly = true)
     public Topic findByIdEntity(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Topic not found"));
+                .orElseThrow(GlobalErrorException::new);
     }
 
     @Transactional(readOnly = true)

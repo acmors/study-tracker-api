@@ -5,6 +5,7 @@ import com.github.acmors.dto.user.ResponseUser;
 import com.github.acmors.dto.user.UpdateUserPassword;
 import com.github.acmors.dto.user.UpdateUserProfile;
 import com.github.acmors.entities.UserAccount;
+import com.github.acmors.exceptions.ResourceNotFoundException;
 import com.github.acmors.mapper.MapperUser;
 import com.github.acmors.repository.UserAccountRepository;
 import com.github.acmors.validations.UserAccountValidation;
@@ -64,7 +65,7 @@ public class UserAccountService {
     @Transactional(readOnly = true)
     public UserAccount findByIdEntity(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found."));
     }
 
     @Transactional(readOnly = true)

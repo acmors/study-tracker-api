@@ -5,6 +5,7 @@ import com.github.acmors.dto.study.ResponseStudySession;
 import com.github.acmors.dto.study.UpdateStudySession;
 import com.github.acmors.dto.study.UpdateStudySessionStatus;
 import com.github.acmors.entities.Topic;
+import com.github.acmors.exceptions.ResourceNotFoundException;
 import com.github.acmors.mapper.MapperStudySession;
 import com.github.acmors.entities.StudySession;
 import com.github.acmors.repository.StudySessionRepository;
@@ -42,7 +43,7 @@ public class StudySessionService {
 
     @Transactional(readOnly = true)
     public ResponseStudySession findById(Long id){
-        var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa nao encontrada"));
+        var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tarefa nao encontrada"));
 
         return MapperStudySession.toDTO(entity);
     }
