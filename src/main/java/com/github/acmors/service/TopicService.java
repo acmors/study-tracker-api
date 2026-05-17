@@ -5,31 +5,33 @@ import com.github.acmors.dto.topic.ResponseTopic;
 import com.github.acmors.dto.topic.UpdateTopic;
 import com.github.acmors.dto.topic.UpdateTopicStatus;
 import com.github.acmors.entities.Topic;
+import com.github.acmors.entities.UserAccount;
 import com.github.acmors.mapper.MapperTopic;
 import com.github.acmors.repository.TopicRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class TopicService {
 
     private final TopicRepository repository;
-
-    public TopicService(TopicRepository repository) {
-        this.repository = repository;
-    }
+    private final UserAccountService userService;
 
     @Transactional
     public ResponseTopic createTopic(RequestTopic request){
         Topic topic = new Topic();
+        UserAccount user = userService.findByIdEntity(1L);
 
         topic.setName(request.getName());
         topic.setColor(request.getColor());
-        topic.setActive(request.isActive());
+        topic.setActive(true);
         topic.setCreatedAt(LocalDateTime.now());
+        topic.setUser(user);
 
         var saved = repository.save(topic);
         return MapperTopic.toDTO(saved);

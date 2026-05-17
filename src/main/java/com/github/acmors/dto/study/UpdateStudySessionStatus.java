@@ -3,24 +3,18 @@ package com.github.acmors.dto.study;
 import com.github.acmors.entities.StudySession;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class UpdateStudySessionStatus {
 
     @Enumerated(EnumType.STRING)
     private StudySession.Status status;
 
-    public UpdateStudySessionStatus(StudySession.Status status) {
-        this.status = status;
-    }
-
-    public UpdateStudySessionStatus() {
-    }
-
-    public StudySession.Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(StudySession.Status status) {
-        this.status = status;
-    }
 }

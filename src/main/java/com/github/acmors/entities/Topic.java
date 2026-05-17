@@ -1,10 +1,21 @@
 package com.github.acmors.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "tb_topic")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Topic {
 
     @Id
@@ -12,66 +23,14 @@ public class Topic {
     private Long id;
     private String name;
     private String color;
-    private String userAccount;
     private boolean active;
     private LocalDateTime createdAt;
 
-    public Topic(String name, String color, String userAccount, boolean active, LocalDateTime createdAt) {
-        this.name = name;
-        this.color = color;
-        this.userAccount = userAccount;
-        this.active = active;
-        this.createdAt = createdAt;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserAccount user;
 
-    public Topic() {
-    }
+    @OneToMany(mappedBy = "topic")
+    private List<StudySession> studySessions = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getUser() {
-        return userAccount;
-    }
-
-    public void setUser(String userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

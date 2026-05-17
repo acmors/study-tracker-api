@@ -4,32 +4,32 @@ import com.github.acmors.dto.study.RequestStudySession;
 import com.github.acmors.dto.study.ResponseStudySession;
 import com.github.acmors.dto.study.UpdateStudySession;
 import com.github.acmors.dto.study.UpdateStudySessionStatus;
+import com.github.acmors.entities.Topic;
 import com.github.acmors.mapper.MapperStudySession;
 import com.github.acmors.entities.StudySession;
 import com.github.acmors.repository.StudySessionRepository;
 import com.github.acmors.validations.StudySessionValidation;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class StudySessionService {
 
     private final StudySessionRepository repository;
     private final StudySessionValidation validation;
-
-    public StudySessionService(StudySessionRepository repository, StudySessionValidation validation) {
-        this.repository = repository;
-        this.validation = validation;
-    }
-
+    private final TopicService topicService;
 
     @Transactional
     public ResponseStudySession createStudySession(RequestStudySession request) throws BadRequestException {
         StudySession entity = new StudySession();
+        Topic topic = topicService.findByIdEntity(request.getTopicId());
+
         entity.setTitle(request.getTitle());
-        entity.setTopic(request.getTopic());
+        entity.setTopic(topic);
         entity.setDescription(request.getDescription());
         entity.setDurationMinutes(request.getDurationMinutes());
         entity.setStudiedAt(request.getStudiedAt());
@@ -56,9 +56,10 @@ public class StudySessionService {
     @Transactional
     public ResponseStudySession updateStudySession(Long id, UpdateStudySession update) throws BadRequestException {
         StudySession entity = findByIdEntity(id);
+        Topic topic = topicService.findByIdEntity(update.getTopicId());
 
         entity.setTitle(update.getTitle());
-        entity.setTopic(update.getTopic());
+        entity.setTopic(topic);
         entity.setDescription(update.getDescription());
         entity.setDurationMinutes(update.getDurationMinutes());
         entity.setStudiedAt(update.getStudiedAt());

@@ -10,7 +10,6 @@ public class MapperTopic {
                 topic.getId(),
                 topic.getName(),
                 topic.getColor(),
-                topic.getUser(),
                 topic.isActive(),
                 topic.getCreatedAt()
         );

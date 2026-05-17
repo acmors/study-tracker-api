@@ -9,7 +9,7 @@ public class MapperStudySession {
         return new ResponseStudySession(
                 studySession.getId(),
                 studySession.getTitle(),
-                studySession.getTopic(),
+                studySession.getTopic().getId(),
                 studySession.getDescription(),
                 studySession.getDurationMinutes(),
                 studySession.getStudiedAt(),
