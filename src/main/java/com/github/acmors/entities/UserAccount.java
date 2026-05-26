@@ -32,4 +32,10 @@ public class UserAccount {
     @OneToMany(mappedBy = "user")
     private List<StudySession> studySessions = new ArrayList<>();
 
+    public UserAccount(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }
