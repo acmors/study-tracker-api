@@ -5,7 +5,6 @@ import com.github.acmors.dto.user.ResponseUser;
 import com.github.acmors.dto.user.UpdateUserPassword;
 import com.github.acmors.dto.user.UpdateUserProfile;
 import com.github.acmors.entities.UserAccount;
-import com.github.acmors.exceptions.MethodArgumentNotValidException;
 import com.github.acmors.exceptions.ResourceAlreadyExistsException;
 import com.github.acmors.repository.UserAccountRepository;
 import com.github.acmors.validations.UserAccountValidation;
@@ -74,6 +73,7 @@ class UserAccountServiceTest {
                 "50505050",
                 "50505050"
         );
+
     }
 
 
@@ -129,9 +129,6 @@ class UserAccountServiceTest {
 
         assertNotNull(result);
     }
-
-
-
 
 
 }
