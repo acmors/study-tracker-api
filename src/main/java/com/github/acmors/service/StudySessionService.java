@@ -31,6 +31,7 @@ public class StudySessionService {
         StudySession entity = new StudySession();
         Topic topic = topicService.findByIdEntity(request.getTopicId());
         UserAccount userAccount = userAccountService.findByIdEntity(request.getUserId());
+        validation.validateCreateSession(request);
 
         entity.setTitle(request.getTitle());
         entity.setTopic(topic);
@@ -40,7 +41,6 @@ public class StudySessionService {
         entity.setStudiedAt(request.getStudiedAt());
         entity.setStatus(request.getStatus());
 
-        validation.validateCreateSession(request);
         var saved = repository.save(entity);
         return MapperStudySession.toDTO(saved);
     }
@@ -55,13 +55,14 @@ public class StudySessionService {
     @Transactional(readOnly = true)
     public StudySession findByIdEntity(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Session not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Session not found"));
     }
 
     @Transactional
     public ResponseStudySession updateStudySession(Long id, UpdateStudySession update){
         StudySession entity = findByIdEntity(id);
         Topic topic = topicService.findByIdEntity(update.getTopicId());
+        validation.validateUpdateSession(update);
 
         entity.setTitle(update.getTitle());
         entity.setTopic(topic);
@@ -70,7 +71,6 @@ public class StudySessionService {
         entity.setStudiedAt(update.getStudiedAt());
         entity.setStatus(update.getStatus());
 
-        validation.validateUpdateSession(update);
 
         var saved = repository.save(entity);
         return MapperStudySession.toDTO(saved);

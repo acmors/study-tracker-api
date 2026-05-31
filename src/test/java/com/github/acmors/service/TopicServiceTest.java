@@ -1,12 +1,10 @@
 package com.github.acmors.service;
-
 import com.github.acmors.dto.topic.RequestTopic;
-import com.github.acmors.dto.topic.ResponseTopic;
 import com.github.acmors.dto.topic.UpdateTopic;
 import com.github.acmors.dto.topic.UpdateTopicStatus;
 import com.github.acmors.entities.Topic;
 import com.github.acmors.entities.UserAccount;
-import com.github.acmors.mapper.MapperTopic;
+import com.github.acmors.exceptions.MethodArgumentNotValidException;
 import com.github.acmors.repository.TopicRepository;
 import com.github.acmors.validations.TopicValidation;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +20,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TopicServiceTest {
@@ -40,7 +38,9 @@ class TopicServiceTest {
     private UserAccount user;
     private Topic topic;
     private RequestTopic request;
+    private RequestTopic requestForError;
     private UpdateTopic updateTopic;
+    private UpdateTopic updateTopicError;
     private UpdateTopicStatus updateTopicStatus;
 
     @BeforeEach
@@ -57,11 +57,22 @@ class TopicServiceTest {
                 "Blue"
         );
 
+        requestForError = new RequestTopic(
+                "",
+                ""
+        );
+
         topic = new Topic();
 
         updateTopic = new UpdateTopic(
                 "Laravel",
                 "Purple",
+                false
+        );
+
+        updateTopicError = new UpdateTopic(
+                "",
+                "",
                 false
         );
     }
@@ -88,6 +99,16 @@ class TopicServiceTest {
         assertEquals("Blue", response.getColor());
     }
 
+    @DisplayName("Should return error Exception when topic fields are invalid.")
+    @Test
+    void shouldReturnErrorExceptionWhenTopicFieldsAreInvalid_Create(){
+
+        doThrow(new MethodArgumentNotValidException("The name must have at least 3 characters")).when(validation).validateCreate(requestForError);
+
+        assertThrows(MethodArgumentNotValidException.class, () -> service.createTopic(requestForError));
+        verify(repository, never()).save(any());
+    }
+
     @DisplayName("Should update topic successfully.")
     @Test
     void shouldUpdateTopicSuccessfully(){
@@ -105,4 +126,16 @@ class TopicServiceTest {
         assertEquals("Laravel", response.getName());
         assertEquals("Purple", response.getColor());
     }
+
+
+    @DisplayName("Should update topic successfully.")
+    @Test
+    void shouldReturnExceptionWhenTopicFieldsAreInvalid_Update(){
+        when(repository.findById(1L)).thenReturn(Optional.of(topic));
+        doThrow(new MethodArgumentNotValidException("Topic color cannot be null")).when(validation).validateUpdate(updateTopicError);
+
+        assertThrows(MethodArgumentNotValidException.class, ()-> service.updateTopic(1L, updateTopicError));
+        verify(repository, never()).save(any());
+    }
+
 }

@@ -33,4 +33,10 @@ public class Topic {
     @OneToMany(mappedBy = "topic")
     private List<StudySession> studySessions = new ArrayList<>();
 
+    public Topic(Long id, String name, String color, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.active = active;
+    }
 }
